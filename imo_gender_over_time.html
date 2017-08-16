@@ -29,7 +29,7 @@ path {
 // Data from https://www.imo-official.org/results_year.aspx
 
 // Set the dimensions of the canvas / graph
-var margin = {top: 30, right: 20, bottom: 30, left: 50},
+var margin = {top: 30, right: 50, bottom: 30, left: 50},
     width = 600 - margin.left - margin.right,
     height = 270 - margin.top - margin.bottom;
 
@@ -113,7 +113,7 @@ d3.csv("data/imo_gender_data.csv", function(error, data) {
         .attr("x",0 - (height / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
-        .text("Number of Participants");
+        .text("Number of Participants (By Gender)");
 
     // Add the title    
     svg.append("text")
@@ -122,6 +122,22 @@ d3.csv("data/imo_gender_data.csv", function(error, data) {
             .attr("text-anchor", "middle")  
             .style("font-size", "16px") 
             .text("Number of Participants in the IMO");
+
+    // Add a label for the female line
+    svg.append("text")
+        .attr("transform", "translate(" + (width+3) + "," + y(data[0].female) + ")")
+        .attr("dy", ".35em")
+        .attr("text-anchor", "start")
+        .style("fill", "steelblue")
+        .text("Female");
+
+    // Add a label for the male line
+    svg.append("text")
+        .attr("transform", "translate(" + (width+3) + "," + y(data[0].male) + ")")
+        .attr("dy", ".35em")
+        .attr("text-anchor", "start")
+        .style("fill", "red")
+        .text("Male");
 
 });
 
